@@ -1,0 +1,33 @@
+fullnameOverride: "test-app"
+
+image:
+  repository: "stefanprodan/podinfo"
+  tag: "latest"
+
+ingress:
+  enabled: false
+
+livenessProbe:
+  exec:
+    command:
+      - podcli
+      - check
+      - http
+      - 'localhost:9898/healthz'
+  initialDelaySeconds: 1
+  timeoutSeconds: 5
+  periodSeconds: 10
+  successThreshold: 1
+  failureThreshold: 3
+readinessProbe:
+  exec:
+    command:
+      - podcli
+      - check
+      - http
+      - 'localhost:9898/readyz'
+  initialDelaySeconds: 1
+  timeoutSeconds: 5
+  periodSeconds: 10
+  successThreshold: 1
+  failureThreshold: 3
